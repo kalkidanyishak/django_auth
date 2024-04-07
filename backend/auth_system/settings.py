@@ -175,8 +175,9 @@ DJOSER={
     'SEND_ACTIVATION_EMAIL':True,
     'SERIALIZERS':{
         'user_create':'accounts.serializers.UserCreateSerializer',
-        'user':'accounts.serializers.UserCreateSerializer',
         'user_create':'djoser.serializers.UserDeleteSerializer',
+        'user':'accounts.serializers.UserCreateSerializer',
+        'user_delete': 'accounts.serializers.UserDeleteSerializer',
     }
 }
 AUTH_USER_MODEL='accounts.UserAccount'
