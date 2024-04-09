@@ -41,8 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'djoser',
+    'complaint',
     'accounts',
+    'counselor',
     'corsheaders',
 ]
 
@@ -56,9 +59,9 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_ALL_HEADERS = True
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -151,11 +154,18 @@ STATICFILES_DIRS=[
 ]
 STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 
-REST_FRAMEWORK={
-    'DEFAULT_AUTHENTICATION_CLASSES':(
+AUTH_USER_MODEL='accounts.userAccount'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
 }
+
 SIMPLE_JWT={
     'AUTH_HEADER_TYPES':('JWT',),
     'ACCESS_TOKEN_LIFETIME' : timedelta(minutes=60),
@@ -174,11 +184,9 @@ DJOSER={
     'ACTIVATION_URL':'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL':True,
     'SERIALIZERS':{
-        'user_create':'accounts.serializers.UserCreateSerializer',
-        'user_create':'djoser.serializers.UserDeleteSerializer',
-        'user':'accounts.serializers.UserCreateSerializer',
-        'user_delete': 'accounts.serializers.UserDeleteSerializer',
-    }
+        'user_create': 'accounts.serializers.UserCreateSerializer',
+        'user': 'accounts.serializers.UserCreateSerializer',
+        'user_delete': 'djoser.serializers.UserDeleteSerializer',
+    },
 }
-AUTH_USER_MODEL='accounts.UserAccount'
 

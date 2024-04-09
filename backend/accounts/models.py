@@ -21,11 +21,12 @@ class userAccount(AbstractBaseUser, PermissionsMixin):
     is_student = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    verified=models.BooleanField(default=False)
 
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'is_student']
+    REQUIRED_FIELDS = ['name']
 
     def get_full_name(self):
         return self.name
