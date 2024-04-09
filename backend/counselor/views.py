@@ -1,5 +1,4 @@
-from rest_framework import status
-from rest_framework import generics
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -10,11 +9,9 @@ from .models import Appointment
 from .serializers import AppointmentSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-class CounselorProfileView(APIView):
-    permission_classes = [IsAuthenticated, IsOwner]
 
 class CounselorProfileView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get(self, request):
         # Retrieve counselor profile of logged-in user
